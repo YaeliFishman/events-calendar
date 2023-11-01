@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "QsVockYEDbIz+GMCm5wC7obKBoRZ+oj3MVDTbaD6T08=",
+  "Source": "server-calendar",
+  "BasePath": "_content/server-calendar",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

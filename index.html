@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8' />
+  <script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
+  <script> 
+    //get
+    document.addEventListener("DOMContentLoaded", function () {
+      axios.get("https://localhost:44313/api/Events").then((res) => {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+          events: res.data,
+        });
+
+        calendar.render();
+      });
+    });
+    function addEvent() {
+      axios.post("https://eventsapi.onrender.com/api/Events/1", {
+        "title": "gbdfshjkwg",
+        "start": "2023-09-11"
+      }).then(res => {
+        console.log(res.data);
+      })
+    }
+
+    function udpateEvent() {
+      let id = 3;
+      axios.put(`https://eventsapi.onrender.com/api/Events/${id}`, {
+        "title": "update event from js",
+        "start": "2023-08-15"
+      }).then(res => {
+        console.log(res.data);
+      })
+    }
+
+    function deleteEvent() {
+      let id = 2;
+      axios.delete(`https://eventsapi.onrender.com/api/Events/${id}`).then(res => {
+        console.log(res.data)
+      })
+    }
+
+  </script>
+
+</head>
+
+
+<body>
+  <div id='calendar'></div>
+</body>
+
+
+<!-- <button onclick="get()">Get Events</button> -->
+<button onclick="addEvent()">Add Event +</button>
+<button onclick="udpateEvent()">Update Event</button>
+<button onclick="deleteEvent()">Delete Event</button>
+
+</body>
+
+</html>
