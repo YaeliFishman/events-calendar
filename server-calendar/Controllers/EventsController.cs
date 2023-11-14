@@ -8,20 +8,28 @@ namespace server_calendar.Controllers
     [ApiController]
     public class EventsController : ControllerBase
     {
-        private static List<Event> events = new List<Event> 
-        { 
-            //new Event { Id = 1, Title = "wedding" ,Start = new DateTime(2023,09,11)} ,
-            //new Event { Id = 2, Title = "chanuca", Start = new DateTime(2023,09,25) },
-            //new Event { Id = 3, Title = "birthday" ,Start = new DateTime(2023,09,10)},
-            //new Event { Id = 4, Title = "course" ,Start = new DateTime(2023,09,14)} 
-        };
+        private DataContext _dataContext;
+
+        public EventsController(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+
+        //private static List<Event> events = new List<Event> 
+        //{ 
+        //    //new Event { Id = 1, Title = "wedding" ,Start = new DateTime(2023,09,11)} ,
+        //    //new Event { Id = 2, Title = "chanuca", Start = new DateTime(2023,09,25) },
+        //    //new Event { Id = 3, Title = "birthday" ,Start = new DateTime(2023,09,10)},
+        //    //new Event { Id = 4, Title = "course" ,Start = new DateTime(2023,09,14)} 
+        //};
 
         // GET: api/<EventsController>
         [HttpGet]
 
         public IEnumerable<Event> Get()
         {
-            return events;
+            return _dataContext.EventList;
         }
 
         // GET api/<EventsController>/5
@@ -35,7 +43,7 @@ namespace server_calendar.Controllers
         [HttpPost]
         public void Post([FromBody] Event myEvent)
         {
-            events.Add(new Event { Id=4,Title=myEvent.Title,Start=myEvent.Start});
+            _dataContext.EventList.Add(new Event { Id=4,Title=myEvent.Title,Start=myEvent.Start});
             return;
         }
        
@@ -43,7 +51,7 @@ namespace server_calendar.Controllers
         [HttpPut("{id}")]
         public Event Put(int id, [FromBody] Event updateEvent)
         {
-            var e = events.Find(e => e.Id == id);
+            var e = _dataContext.EventList.Find(e => e.Id == id);
             e.Title = updateEvent.Title;
             return e;
         }
@@ -52,8 +60,8 @@ namespace server_calendar.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var e = events.Find(e => e.Id == id);
-            events.Remove(e);
+            var e = _dataContext.EventList.Find(e => e.Id == id);
+            _dataContext.EventList.Remove(e);
         }
     }
 }
